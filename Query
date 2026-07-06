@@ -1,0 +1,87 @@
+/*=========================================
+  QUERY 1
+  Cantidad de órdenes atendidas por técnico
+=========================================*/
+SELECT
+    t.riwi_technician_id,
+    t.riwi_technician_name,
+    COUNT(o.riwi_order_id) AS total_orders
+FROM riwi_technicians t
+LEFT JOIN riwi_service_orders o
+ON t.riwi_technician_id = o.riwi_technician_id
+GROUP BY
+    t.riwi_technician_id,
+    t.riwi_technician_name
+ORDER BY total_orders DESC;
+
+
+/*=========================================
+  QUERY 2
+  Historial de servicios realizados por ciudad
+=========================================*/
+SELECT
+    c.riwi_city_name,
+    COUNT(o.riwi_order_id) AS total_services
+FROM riwi_cities c
+JOIN riwi_branches b
+ON c.riwi_city_id = b.riwi_city_id
+JOIN riwi_service_orders o
+ON b.riwi_branch_id = o.riwi_branch_id
+GROUP BY c.riwi_city_name
+ORDER BY total_services DESC;
+
+
+/*=========================================
+  QUERY 3
+  Total de servicios por tipo
+=========================================*/
+SELECT
+    st.riwi_service_name,
+    COUNT(o.riwi_order_id) AS total_services
+FROM riwi_service_types st
+LEFT JOIN riwi_service_orders o
+ON st.riwi_service_type_id = o.riwi_service_type_id
+GROUP BY st.riwi_service_name
+ORDER BY total_services DESC;
+
+
+/*=========================================
+  QUERY 4
+  Equipos con mayor cantidad de mantenimientos
+=========================================*/
+SELECT
+    e.riwi_equipment_name,
+    COUNT(o.riwi_order_id) AS total_maintenance
+FROM riwi_equipment e
+LEFT JOIN riwi_service_orders o
+ON e.riwi_equipment_id = o.riwi_equipment_id
+GROUP BY e.riwi_equipment_name
+ORDER BY total_maintenance DESC;
+
+
+/*=========================================
+  QUERY 5
+  Clientes con mayor número de órdenes
+=========================================*/
+SELECT
+    c.riwi_client_name,
+    COUNT(o.riwi_order_id) AS total_orders
+FROM riwi_clients c
+LEFT JOIN riwi_service_orders o
+ON c.riwi_client_id = o.riwi_client_id
+GROUP BY c.riwi_client_name
+ORDER BY total_orders DESC;
+
+
+/*=========================================
+  QUERY 6
+  Cantidad de órdenes gestionadas por sede
+=========================================*/
+SELECT
+    b.riwi_branch_name,
+    COUNT(o.riwi_order_id) AS total_orders
+FROM riwi_branches b
+LEFT JOIN riwi_service_orders o
+ON b.riwi_branch_id = o.riwi_branch_id
+GROUP BY b.riwi_branch_name
+ORDER BY total_orders DESC;
