@@ -1,0 +1,90 @@
+/* ==========================================
+   DATA LOAD - TechCare Solutions
+   ========================================== */
+
+-- ==========================
+-- CITIES
+-- ==========================
+INSERT INTO riwi_cities (riwi_city_name) VALUES
+('Bogotá'),
+('Medellín'),
+('Cali'),
+('Barranquilla');
+
+-- ==========================
+-- EQUIPMENT CATEGORIES
+-- ==========================
+INSERT INTO riwi_equipment_categories (riwi_category_name) VALUES
+('Laptop'),
+('Desktop'),
+('Printer'),
+('Server');
+
+-- ==========================
+-- SERVICE TYPES
+-- ==========================
+INSERT INTO riwi_service_types (riwi_service_name) VALUES
+('Preventive Maintenance'),
+('Corrective Maintenance');
+
+-- ==========================
+-- CLIENTS
+-- ==========================
+INSERT INTO riwi_clients (riwi_client_name) VALUES
+('Acme Ltd'),
+('Innova SAS'),
+('Global Tech'),
+('Nova Group'),
+('Digital Corp'),
+('Alpha Systems'),
+('Smart Solutions'),
+('TechVision');
+
+-- ==========================
+-- TECHNICIANS
+-- ==========================
+INSERT INTO riwi_technicians (riwi_technician_name) VALUES
+('Juan Perez'),
+('Maria Gomez'),
+('Carlos Ruiz'),
+('Laura Torres');
+
+-- ==========================
+-- BRANCHES
+-- ==========================
+INSERT INTO riwi_branches (riwi_branch_name, riwi_city_id) VALUES
+('North Office', 1),
+('Headquarters', 2),
+('West Office', 3),
+('Caribbean Office', 4);
+
+-- ==========================
+-- EQUIPMENT
+-- ==========================
+INSERT INTO riwi_equipment (riwi_equipment_name, riwi_category_id) VALUES
+('Dell Latitude 5420', 1),
+('HP ProDesk', 2),
+('Epson L3150', 3),
+('Dell PowerEdge R740', 4);
+
+-- ==========================
+-- SERVICE ORDERS
+-- ==========================
+INSERT INTO riwi_service_orders
+(
+    riwi_order_date,
+    riwi_client_id,
+    riwi_equipment_id,
+    riwi_technician_id,
+    riwi_service_type_id,
+    riwi_branch_id
+)
+VALUES
+('2026-01-05',1,1,1,1,1),
+('2026-01-06',2,2,2,2,2),
+('2026-01-08',3,3,3,1,3),
+('2026-01-10',4,4,4,2,4),
+('2026-01-12',5,1,2,1,1),
+('2026-01-14',6,2,3,2,2),
+('2026-01-16',7,3,4,1,3),
+('2026-01-18',8,4,1,2,4);
