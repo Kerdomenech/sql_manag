@@ -1,0 +1,128 @@
+Database Normalization
+
+Initial Dataset Analysis
+
+The original Excel file contains information about clients, cities, branches, technicians, equipment, equipment categories, service types and work orders in a single table.
+
+Problems Identified
+
+1. Duplicate clients.
+   
+   - Example:
+     - Acme Ltd
+     - ACME LTDA
+
+2. Inconsistent city names.
+   
+   - Bogotá
+   - Bogota
+   - Medellín
+   - Medellin
+
+3. Duplicate branch names.
+   
+   - North Office
+   - Office North
+   - HQ
+   - Headquarters
+
+4. Technician names written differently.
+   
+   - Juan Perez
+   - J. Perez
+   - Maria Gomez
+   - M. Gomez
+
+5. Equipment names are inconsistent.
+   
+   - Dell Latitude 5420
+   - Latitude 5420
+   - HP ProDesk
+   - HP Pro Desk
+
+6. Equipment categories are duplicated.
+   
+   - Laptop
+   - Laptops
+   - Desktop
+   - Desktops
+
+7. Service types are inconsistent.
+   
+   - Preventive
+   - Preventive Maintenance
+   - Corrective
+   - Repair
+
+8. Data redundancy.
+   Client, city, branch and technician information is repeated in every work order.
+
+9. Update anomalies.
+   Updating a technician or client requires modifying several rows.
+
+10. Insert anomalies.
+    New clients or technicians cannot be stored unless a work order exists.
+
+11. Delete anomalies.
+    Deleting a work order may remove the only information available about a client or technician.
+
+---
+
+First Normal Form (1NF)
+
+Actions performed:
+
+- Each column stores a single value.
+- No repeating groups.
+- A primary key will be assigned to every entity.
+
+---
+
+Second Normal Form (2NF)
+
+Data was separated into independent entities:
+
+- Cities
+- Branches
+- Clients
+- Technicians
+- Equipment Categories
+- Equipment
+- Service Types
+- Work Orders
+
+This removes partial dependencies.
+
+---
+
+Third Normal Form (3NF)
+
+The database was redesigned so every non-key attribute depends only on its primary key.
+
+Relationships are established through foreign keys.
+
+Examples:
+
+- A Branch belongs to one City.
+- Equipment belongs to one Category.
+- A Work Order references one Client.
+- A Work Order references one Technician.
+- A Work Order references one Equipment.
+- A Work Order references one Service Type.
+- A Work Order references one Branch.
+
+This eliminates redundancy and guarantees data integrity.
+
+---
+
+Final Result
+
+The database satisfies Third Normal Form (3NF).
+
+Benefits obtained:
+
+- No duplicated information.
+- Better data consistency.
+- Easier maintenance.
+- Improved scalability.
+- Reliable reports for business decision-making.
