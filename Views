@@ -1,0 +1,80 @@
+/*==========================================================
+    VIEW 1
+    Operational tracking by technician
+==========================================================*/
+CREATE OR REPLACE VIEW riwi_vw_technician_workload AS
+SELECT
+    t.riwi_technician_id,
+    t.riwi_technician_name,
+    COUNT(o.riwi_order_id) AS total_orders
+FROM riwi_technicians t
+LEFT JOIN riwi_service_orders o
+ON t.riwi_technician_id = o.riwi_technician_id
+GROUP BY
+    t.riwi_technician_id,
+    t.riwi_technician_name;
+
+
+/*==========================================================
+    VIEW 2
+    Service history by city
+==========================================================*/
+CREATE OR REPLACE VIEW riwi_vw_services_by_city AS
+SELECT
+    c.riwi_city_name,
+    COUNT(o.riwi_order_id) AS total_services
+FROM riwi_cities c
+JOIN riwi_branches b
+ON c.riwi_city_id = b.riwi_city_id
+JOIN riwi_service_orders o
+ON b.riwi_branch_id = o.riwi_branch_id
+GROUP BY c.riwi_city_name;
+
+
+/*==========================================================
+    FUNCTION
+    Returns one technician or all technicians
+==========================================================*/
+CREATE OR REPLACE FUNCTION riwi_get_technicians(
+    p_id INT DEFAULT NULL
+)
+RETURNS TABLE(
+    technician_id INT,
+    technician_name VARCHAR
+)
+AS $$
+BEGIN
+
+    IF p_id IS NULL THEN
+
+        RETURN QUERY
+        SELECT
+            riwi_technician_id,
+            riwi_technician_name
+        FROM riwi_technicians;
+
+    ELSE
+
+        RETURN QUERY
+        SELECT
+            riwi_technician_id,
+            riwi_technician_name
+        FROM riwi_technicians
+        WHERE riwi_technician_id = p_id;
+
+    END IF;
+
+END;
+$$
+LANGUAGE plpgsql;
+
+
+/*==========================================================
+    Examples
+==========================================================*/
+
+-- Returns all technicians
+SELECT * FROM riwi_get_technicians();
+
+-- Returns technician with ID = 2
+SELECT * FROM riwi_get_technicians(2);
