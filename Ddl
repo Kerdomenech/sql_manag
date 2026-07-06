@@ -1,0 +1,108 @@
+-- ============================================
+-- DATABASE: TechCare Solutions
+-- Author: Kerlys Bello
+-- ============================================
+
+CREATE DATABASE bd_kerlys_bello_lovelace;
+
+-- Conectarse a la base de datos antes de ejecutar las tablas.
+-- En PostgreSQL:
+-- \c bd_kerlys_bello_lovelace;
+
+-- =========================
+-- TABLE: riwi_cities
+-- =========================
+CREATE TABLE riwi_cities (
+    riwi_city_id SERIAL PRIMARY KEY,
+    riwi_city_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- =========================
+-- TABLE: riwi_branches
+-- =========================
+CREATE TABLE riwi_branches (
+    riwi_branch_id SERIAL PRIMARY KEY,
+    riwi_branch_name VARCHAR(100) NOT NULL,
+    riwi_city_id INT NOT NULL,
+    CONSTRAINT fk_branch_city
+        FOREIGN KEY (riwi_city_id)
+        REFERENCES riwi_cities(riwi_city_id)
+);
+
+-- =========================
+-- TABLE: riwi_clients
+-- =========================
+CREATE TABLE riwi_clients (
+    riwi_client_id SERIAL PRIMARY KEY,
+    riwi_client_name VARCHAR(120) NOT NULL
+);
+
+-- =========================
+-- TABLE: riwi_technicians
+-- =========================
+CREATE TABLE riwi_technicians (
+    riwi_technician_id SERIAL PRIMARY KEY,
+    riwi_technician_name VARCHAR(120) NOT NULL
+);
+
+-- =========================
+-- TABLE: riwi_equipment_categories
+-- =========================
+CREATE TABLE riwi_equipment_categories (
+    riwi_category_id SERIAL PRIMARY KEY,
+    riwi_category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- =========================
+-- TABLE: riwi_equipment
+-- =========================
+CREATE TABLE riwi_equipment (
+    riwi_equipment_id SERIAL PRIMARY KEY,
+    riwi_equipment_name VARCHAR(120) NOT NULL,
+    riwi_category_id INT NOT NULL,
+    CONSTRAINT fk_equipment_category
+        FOREIGN KEY (riwi_category_id)
+        REFERENCES riwi_equipment_categories(riwi_category_id)
+);
+
+-- =========================
+-- TABLE: riwi_service_types
+-- =========================
+CREATE TABLE riwi_service_types (
+    riwi_service_type_id SERIAL PRIMARY KEY,
+    riwi_service_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- =========================
+-- TABLE: riwi_service_orders
+-- =========================
+CREATE TABLE riwi_service_orders (
+    riwi_order_id SERIAL PRIMARY KEY,
+    riwi_order_date DATE NOT NULL,
+
+    riwi_client_id INT NOT NULL,
+    riwi_equipment_id INT NOT NULL,
+    riwi_technician_id INT NOT NULL,
+    riwi_service_type_id INT NOT NULL,
+    riwi_branch_id INT NOT NULL,
+
+    CONSTRAINT fk_order_client
+        FOREIGN KEY (riwi_client_id)
+        REFERENCES riwi_clients(riwi_client_id),
+
+    CONSTRAINT fk_order_equipment
+        FOREIGN KEY (riwi_equipment_id)
+        REFERENCES riwi_equipment(riwi_equipment_id),
+
+    CONSTRAINT fk_order_technician
+        FOREIGN KEY (riwi_technician_id)
+        REFERENCES riwi_technicians(riwi_technician_id),
+
+    CONSTRAINT fk_order_service
+        FOREIGN KEY (riwi_service_type_id)
+        REFERENCES riwi_service_types(riwi_service_type_id),
+
+    CONSTRAINT fk_order_branch
+        FOREIGN KEY (riwi_branch_id)
+        REFERENCES riwi_branches(riwi_branch_id)
+);
