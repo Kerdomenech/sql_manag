@@ -1,0 +1,44 @@
+riwi_city_id,riwi_city_name
+1,Bogotá
+2,Medellín
+3,Cali
+4,Barranquilla
+
+riwi_branch_id,riwi_branch_name,riwi_city_id
+1,North Office,1
+2,Headquarters,2
+3,West Office,3
+4,Caribbean Office,4
+
+riwi_client_id,riwi_client_name
+1,Acme Ltd
+2,Innova SAS
+3,Global Tech
+...
+riwi_technician_id,riwi_technician_name
+1,Juan Perez
+2,Maria Gomez
+3,Carlos Ruiz
+...
+riwi_category_id,riwi_category_name
+1,Laptop
+2,Desktop
+3,Printer
+4,Server
+riwi_equipment_id,riwi_equipment_name,riwi_category_id
+1,Dell Latitude 5420,1
+2,HP ProDesk,2
+3,Epson L3150,3
+4,Dell PowerEdge R740,4
+
+riwi_service_type_id,riwi_service_name
+1,Preventive Maintenance
+2,Corrective Maintenance
+
+riwi_order_id,
+riwi_order_date,
+riwi_client_id,
+riwi_equipment_id,
+riwi_technician_id,
+riwi_service_type_id,
+riwi_branch_id
