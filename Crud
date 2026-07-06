@@ -1,0 +1,53 @@
+/*==========================================
+  DML - INSERT, UPDATE, DELETE
+==========================================*/
+
+-- ==========================================
+-- INSERT
+-- Registrar un nuevo cliente junto con una orden de servicio
+-- ==========================================
+
+-- Nuevo cliente
+INSERT INTO riwi_clients (riwi_client_name)
+VALUES ('Electro Solutions');
+
+-- Nueva orden de servicio
+INSERT INTO riwi_service_orders
+(
+    riwi_order_date,
+    riwi_client_id,
+    riwi_equipment_id,
+    riwi_technician_id,
+    riwi_service_type_id,
+    riwi_branch_id
+)
+VALUES
+(
+    '2026-07-06',
+    9,
+    1,
+    2,
+    1,
+    1
+);
+
+-- ==========================================
+-- UPDATE
+-- Actualizar la información de un técnico
+-- ==========================================
+
+UPDATE riwi_technicians
+SET riwi_technician_name = 'Juan David Perez'
+WHERE riwi_technician_id = 1;
+
+-- ==========================================
+-- DELETE
+-- Eliminar un equipo sin órdenes asociadas
+-- ==========================================
+
+DELETE FROM riwi_equipment
+WHERE riwi_equipment_id = 5
+AND riwi_equipment_id NOT IN (
+    SELECT riwi_equipment_id
+    FROM riwi_service_orders
+);
